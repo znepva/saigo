@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <title>Learning Go</title>
+
+  <body>
+    <form action="/signup" method="POST">
+      <input type="text" name="username" placeholder="Enter Name">
+      <input type="submit" value="Sign-Up"/>
+    </form>
+
+    {{ range $key, $value := . }}
+    <li><strong>{{ $key }}</strong>: {{ $value }}</li>
+    {{ end }}
+
+  </body>
+</html>
