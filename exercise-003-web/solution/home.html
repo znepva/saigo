@@ -8,9 +8,25 @@
       <input type="submit" value="Sign-Up"/>
     </form>
 
-    {{ range $key, $value := . }}
-    <li><strong>{{ $key }}</strong>: {{ $value }}</li>
-    {{ end }}
+
+    {{ if . }}
+    <table>
+        <tr>
+            <th> User </th>
+            <th> Count </th>
+        </tr>
+
+        {{ range $key, $value := . }}
+        <tr>
+            <td> {{ $key }} </td>
+            <td> {{ $value }} </td>
+        </tr>
+        {{ end }}
+
+    </table>
+  {{ else }}
+    <h2> No users yet! </h2>
+  {{ end }}
 
   </body>
 </html>

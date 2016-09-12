@@ -5,22 +5,35 @@ import (
 	"net/http"
 )
 
+var homeT *template.Template
+
 var userData = make(map[string]int)
 
-var homeT = template.Must(template.ParseFiles("solution/home.html"))
-
 func home(w http.ResponseWriter, r *http.Request) {
-	homeT.Execute(w, nil)
+	err := homeT.Execute(w, nil)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
 }
 
 func signup(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	username := r.Form.Get("username")
 	userData[username]++
-	homeT.Execute(w, &userData)
+
+	err := homeT.Execute(w, &userData)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
 }
 
 func main() {
+	var err error
+	homeT = template.Must(template.ParseFiles("solution/home.html"))
+	if err != nil {
+		panic(err)
+	}
+
 	http.HandleFunc("/home", home)
 	http.HandleFunc("/signup", signup)
 	http.ListenAndServe(":8080", nil)
