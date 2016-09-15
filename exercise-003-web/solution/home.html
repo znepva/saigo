@@ -9,7 +9,7 @@
     </form>
 
 
-    {{ if . }}
+    {{ $length := len . }} {{ if ne $length 0 }}
     <table>
         <tr>
             <th> User </th>
